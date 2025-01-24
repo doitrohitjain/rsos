@@ -1,0 +1,126 @@
+.card-header {
+    height: 40px;
+    z-index: 1044;
+	font-size:20px;
+	color:white;
+    left: 0px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px 0px;
+    background: linear-gradient(to right, rgb(14 91 101) 0%, #0e6521 100%);
+    border-bottom: 1px solid transparent;
+}
+
+.headerNav {
+    z-index: 2000;
+    transition: all .9s;
+    background-color: #0e5b65 !important;
+	color:white  !important;
+    box-shadow: 0 0 30px rgba(127, 137, 161, .3) !important;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand{
+	color:white  !important;
+}
+.mainitem{
+	 color:white  !important;
+	 font-size:15px;
+}
+.nav-item + .nav-item {
+  border-left: 1px solid #ddd;  /* Add separator between menu items */
+  padding-left: 15px;
+  margin-left: 15px;
+}
+
+/* Custom active menu item */
+.nav-link-active {
+  background-color: #0e5b65 !important;  /* Custom background */
+  color: white !important;               /* White text */
+}
+
+.navbar-nav .nav-item.active .nav-link:hover {
+  color: white !important;  /* Ensure hover color stays white */
+}
+
+ 
+  /* Pagination container */
+  
+  
+  
+  /* Pagination container style */
+.pagination-container {
+    text-align: center;
+    font-family: 'Arial', sans-serif;  /* Set font for better readability */
+}
+
+/* Pagination list styling */
+.pagination {
+    display: inline-flex;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+/* Individual page items */
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+/* Pagination links */
+.pagination .page-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    color: #007bff;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover effect for pagination links */
+.pagination .page-link:hover {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+/* Active page link styling */
+.pagination .page-item.active .page-link {
+    background-color: #0e5b65;
+    color: white;
+    border-color: #0e5b65;
+}
+
+/* Disabled page link (previous or next) styling */
+.pagination .page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    color: #ddd;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+/* Styling for the records display (e.g., "Records: 1 - 5 Total: 8") */
+.pagination-info {
+    font-weight: bold;
+    color: #333;
+    font-size: 1rem;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    display: inline-block;
+}
+.horizontal-list {
+    padding: 0 !important;             /* Remove default padding */
+    margin: 0 !important;              /* Remove default margin */
+    list-style: none !important;       /* Remove default list bullets */
+}
+
+.horizontal-list li {
+    display: inline-block !important;  /* Display list items inline */
+    margin-right: 10px !important;     /* Add spacing between list items */
+    font-size: 1rem !important;        /* Set font size */
+}
+

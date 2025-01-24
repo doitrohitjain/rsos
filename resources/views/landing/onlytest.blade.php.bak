@@ -1,0 +1,59 @@
+
+@extends('layouts.guest')
+@section('content')
+<br /><br /><br /><br /><br /><br /><br />
+             <label>
+                 <input type="checkbox" name="checkbox" id="multiselect-drop" value="scheckbox" />
+                <span></span>
+              </label>
+			  
+			  <label>
+                 <input type="checkbox" name="checkbox2" id="checkbox2" value="scheckbox" />
+                <span></span>
+              </label>
+        
+
+         <br />
+          <input id="showthis" name="showthis" size="50" type="text" value="text here" />
+ <br /><br /><br /><br /><br /><br /><br /><br />
+       
+@endsection 
+@section('customjs')
+<script>
+ $(function () {
+        $('input[name="showthis"]').hide();
+
+        //show it when the checkbox is clicked
+		var $inputs = $('#multiselect-drop');
+		var $inputss = $('#multiselect-drop');
+        $($inputs).on('click', function () {
+            if ($(this).prop('checked')) {
+                $('input[name="showthis"]').fadeIn();
+            } else {
+                $('input[name="showthis"]').hide();
+            }
+        });
+		$($inputss).on('click', function () {
+            if ($(this).prop('checked')) {
+                $('input[name="checkbox"]').fadeIn();
+            } else {
+                $('input[name="showthis"]').hide();
+            }
+        });
+    });
+	</script>
+@endsection 
+
+
+
+
+<div class="input-field col m3 s10 mb-3">
+				<input type="hidden" name="mainitem[{{ @$lbl['main_fld_name'] }}]" value="{{  @$lbl['main_fld_name'] }}">
+				{!! Form::select($fld,@$fresh_student_doc_update_status,@$documentVerificationDetails[@$fld], ['class' => 'select2 browser-default form-control center-align cls_fresh_student_doc_update_status allstreamcourseadmtype course cls_' . $fld ,'placeholder' => 'Select Status for ' . @$lbl['label'] ]) !!}
+				@include('elements.field_error')
+				
+			</div> 
+
+
+
+

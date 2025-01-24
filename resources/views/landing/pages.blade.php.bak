@@ -1,0 +1,19 @@
+
+// Include the qrlib file
+@php
+@include('elements.phpqrcode.qrlib.php');@endphp
+  
+// $path variable store the location where to 
+// store image and $file creates directory name
+// of the QR code file by using 'uniqid'
+// uniqid creates unique id based on microtime
+
+  
+// Generates QR Code and Stores it in directory given
+     @php QrCode::generate('test'); @endphp
+
+
+  
+// Displaying the stored QR code from directory
+
+<img src="{{$file}}" alt="job image" title="job image">

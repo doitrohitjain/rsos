@@ -1,0 +1,59 @@
+@foreach($documentInput as $fld => $lbl)
+{{ Form::open(['route' => [request()->route()->getAction()['as'], $estudent_id], 
+  'enctype' => 'multipart/form-data', "id" => $model . "_" . $fld]) }}
+  {!! Form::token() !!}
+  {!! method_field('PUT') !!}  
+    <div class="row">
+		
+      <div class="col m12 s12 ">
+		@if($fld != 'label')
+			<div class="col m5 s8 mb-1">
+				<div class="file-path-wrapper">
+				  <!--<input class="file-path validate" type="text" value ="@php echo $lbl; @endphp" style="font-weight: bold;" disabled>-->
+				  <span style="font-size:20px;font-weight: bold;color:#000;border-bottom:1px dotted rgba(0, 0, 0, 0.42)">
+				  <b>@php echo $lbl; @endphp</b></span>
+				  @include('elements.field_error')
+				</div>
+			</div> 
+			<div class="file-field input-field btn col m3 s10 mb-3">
+				<span>@php echo $lbl; $fldInputType ="document_type"; $fldInput = "document_input";
+					$val = "d";
+					if($fld == "photograph" || $fld == "signature"){
+						$val = "i";
+					}
+				@endphp</span>
+				{!!Form::hidden($fldInputType,$val,['type'=>'hidden', 'class'=>'form-control inputfile','autocomplete'=>'off']); !!}
+				{!!Form::hidden($fldInput,$fld,['type'=>'hidden', 'class'=>'form-control inputfile','autocomplete'=>'off']); !!}
+				{!!Form::file($fld,['type'=>'file',"data-type" => "d" , "data-formId" => $model . "_" . $fld, "id" => $fld, 'class'=>'form-control inputfile test','autocomplete'=>'off']); !!}
+			</div>
+			<div class="input-field col m2 s10 mb-3">
+			   @php $path = public_path($studentDocumentPath . "/" . @$studentDocumentVerificaitonData->$fld); @endphp
+				@if(!empty(@$studentDocumentVerificaitonData->$fld))
+					@php  
+						$filePath = route('download', Crypt::encrypt('/'.$studentDocumentPath . "/" . @$studentDocumentVerificaitonData->$fld)); 
+					@endphp
+					@if(file_exists($path))	
+					<a href="{{ $filePath }} " target="_blank" class='btn btn-ghost-info'>
+					   <i class="fa fa-download">download</i>
+					</a> 
+					@else
+						{{ "Not Found" }} 
+					@endif	
+				@endif
+			</div>
+		@endif
+		</div>  
+		@php $lblText= @$documentInput['label'][$fld . "_label"];  @endphp
+		@if(@$lblText)
+			<div class="col m12 s12 mb-1">
+				<span class="badge cyan waves-effect waves-light border-round gradient-45deg-purple-deep-orange" style="float:left !important">
+ 					@php echo "Note: Valid Document " . $lblText;   @endphp
+				</span>
+			</div>
+		@endif
+		 
+		 <button class="green btn submitBtnCls submitconfirms btn show_confirm white-text secondary-content waves-yellow" type="submit" name="action">
+      
+    </div>  
+  {{ Form::close() }}
+@endforeach

@@ -1,0 +1,28 @@
+ <li class="bold"><a class="collapsible-header waves-effect waves-cyan " href="Javascript:void(0)"><i class="material-icons">face</i><span class="menu-title" data-i18n="User">User</span></a>
+          <div class="collapsible-body">
+            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+              <li><a href="page-users-list.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="List">List</span></a>
+              </li>
+              <li><a href="page-users-view.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="View">View</span></a>
+              </li>
+              <li><a href="page-users-edit.html"><i class="material-icons">radio_button_unchecked</i><span data-i18n="Edit">Edit</span></a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        jquery code for card and card-content convert to collapsible and collapsible-body if url contain dashboard
+        in material ui in php larvel 8
+
+
+        $(document).ready(function() {
+            // Check if the URL contains 'dashboard'
+            if (window.location.href.indexOf("dashboard") !== -1) {
+                // Convert the card and card-content to collapsible components
+                $('#myCard').addClass('collapsible');
+                $('#myCardContent').addClass('collapsible-body');
+
+                // Initialize collapsible functionality (Materialize CSS)
+                $('.collapsible').collapsible();
+            }
+        });

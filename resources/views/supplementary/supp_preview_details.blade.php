@@ -1,0 +1,540 @@
+@extends('layouts.default') 
+@section('content') 
+@php 
+    $role_id = @Session::get('role_id');
+    $aicenter_id_role_id = Config::get('global.aicenter_id');
+    $examination_department_role_id = Config::get('global.examination_department');
+@endphp
+<div id="main">
+    <div class="row">
+        <div class="col s12">
+            <div class="container">
+                <div class="section">
+                    @if($role_id == Config::get("global.developer_admin"))
+                        <div class="col s12 m12 l12"><div class="card row">
+                                <div class="card-content">
+                                    <!-- @can('aicenter_verify_revert_action')
+                                        <a data-url="{{ route('revartVerifyStatus',[Crypt::encrypt($suppData->id),$aicenter_id_role_id]) }}" class="btn btn-xs btn-success right mb-2 mr-1  aicenter_verify" style="">
+                                            Reset Ai Center Verified
+                                        </a>
+                                    @endcan -->
+                                    @can('department_verify_revert_action')
+                                        <a data-url="{{ route('revartVerifyStatus',[Crypt::encrypt($suppData->id),$examination_department_role_id]) }}" class="btn btn-xs btn-success right mb-2 mr-1 department_verify">
+                                            Reset Department Verified
+                                        </a>
+                                    @endcan	
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="col s12 m12 l12">
+                        <div class="card">  @include('elements.supplementary_top_navigation') </div>
+                    </div>
+                    <div class="col s12 m12 l12" style="background-color: #4f505245;'">
+                        <div id="Form-advance" class="card card card-default scrollspy">
+                            <div class="card-content">
+                                <h4 class="card-title">{{ $page_title; }}</h4>  
+                            @php 
+                                $fld='locksumbitted'; 
+                            @endphp  
+                            @if(!empty(@$masterrecord->locksubmitted_date) &&  !empty(@$masterrecord->locksubmitted_date) && @$masterrecord->fee_paid_amount >= 0) 
+								@if($masterrecord->is_eligible != 1)
+								@php $verifingTxt = "सफल भुगतान के बाद आपके पूरक आवेदन पत्र को ऊपरी स्तरों द्वारा सत्यापित किया जाएगा।(After successful payment your supplementary application form should verify by the upper levels.)";@endphp
+								<div style='color:blue;font-size:18px;'> 
+								<img class="" src="{{asset('public/app-assets/images/new.jpg')}}" height="40" alt="materialize logo"/>
+								{{ $verifingTxt }} </div>
+								@endif
+							@endif
+							<?php  
+                            $lblForPaymentText = null;
+                            // $lblCashFeePaymentLbl = '<span style="color: red; font-size:20px;">Notes:- अग्रेषण शुल्क रु. 5/- और ऑनलाइन सेवा शुल्क रु. 25/- एआई सेंटर को ऑफलाइन भुगतान करना होगा( Forwarding Fees of Rs. 5/- and Online Service Fees of Rs. 25/- to be paid offline to the AI center).</span></br></br>'; 
+							if(@$checkchangerequestsssupplementariesAllowOrNotAllow == true && @$changerequeststudent->supp_student_update_application == 1 && @$suppchangerequestcheckfees == 'false' ){
+							  $lblForPaymentText = "कृपया फॉर्म को लॉक करके सबमिट करें ,  <b>शुल्क का भुगतान करने की कोई आवश्यकता नहीं है</b>।(Please lock and submit form and you are come in special category ) so <b>No need to pay fees</b>.)";
+								
+							}else{
+								
+							if(@$isZeroSuppFeeStudent){
+								$lblForPaymentText = "कृपया फॉर्म को लॉक करके सबमिट करें , शुल्क का भुगतान करने की कोई आवश्यकता नहीं है</b>।(Please lock and submit form <b>No need to pay fees</b>.)";
+							}else{
+								if(empty(@$masterrecord->locksubmitted_date) && @$masterrecord->category_a != 7 ){
+									$lblForPaymentText = "कृपया फ़ॉर्म लॉक और सबमिट करें। सबमिशन के बाद, 'Make Payment' पर क्लिक करके ऑनलाइन आवेदन शुल्क भरे।</b><br>(Please lock and submit the form. After submission, you can pay the application fees online by clicking on </br><b>'Make Payment'</b>.)";
+								?> 
+								<?php }
+								else if(empty(@$masterrecord->locksubmitted_date) && @$masterrecord->category_a == 7 ){
+								
+									 $lblForPaymentText = "कृपया फॉर्म को लॉक करके सबमिट करें , आप विशेष श्रेणी(". $categorya[@$masterrecord->category_a] ."  ) में आ गए हैं इसलिए <b>शुल्क का भुगतान करने की कोई आवश्यकता नहीं है</b>।(Please lock and submit form and you are come in special category (". $categorya[@$masterrecord->category_a] ."  ) so <b>No need to pay fees</b>.)";
+								?>
+									
+								<?php }
+							}	
+							}
+														
+                            
+                            ?>
+							
+                            <?php if(!empty($lblCashFeePaymentLbl)){ ?>
+                                <span style="color:red;font-size:18px;">
+                                    <img class="" src="{{asset('public/app-assets/images/new.jpg')}}" height="40" alt="materialize logo"/><?php echo $lblCashFeePaymentLbl; ?>
+                                </span>
+                            <?php } ?>
+                            
+                            <?php if(!empty($lblForPaymentText)){ ?>
+                                <span style="color:red;font-size:18px;">
+                                    <img class="" src="{{asset('public/app-assets/images/new.jpg')}}" height="40" alt="materialize logo"/><?php echo $lblForPaymentText; ?>
+                                </span>
+                            <?php } ?>
+							@if(@$checkchangerequestsssupplementariesAllowOrNotAllow == true && !empty(@$SupplementaryIdArr->update_supp_change_requests_challan_tid) && !empty(@$SupplementaryIdArr->update_supp_change_requests_submitted) && @$changerequeststudent->supp_student_update_application == 1)
+							<?php $lblPDFLink = "Supp change request Download Payment PDF"; ?>
+						    @elseif(@$checkchangerequestsssupplementariesAllowOrNotAllow == true && @$changerequeststudent->supp_student_update_application == 1 && @$suppchangerequestcheckfees == 'false' && @$masterrecord->locksumbitted == 1)
+							<?php $lblPDFLink = "Supp change request Download PDF"; ?>
+							@elseif(@$masterrecord->locksumbitted == 1 && @$changerequeststudent->supp_student_update_application == 1 && @$SupplementaryIdArr->supp_student_change_requests == 2)
+							<?php $changerequestst = true; ?>
+							@else
+							<?php  
+                            if(!empty(@@$masterrecord->locksubmitted_date) &&  !empty(@$masterrecord->locksubmitted_date) && @$masterrecord->fee_paid_amount <= 0){ ?>
+                            <?php $lblPDFLink = "Download PDF"; ?>
+                            <?php  } else { ?>
+                                <?php $lblPDFLink = "Download Payment PDF"; ?>
+                            <?php }?>	
+							@endif
+                            @if(!empty(@$masterrecord->locksubmitted_date) && !empty(@$masterrecord->locksubmitted_date))
+								@if(@$changerequestst != true)
+							    <h4> 
+                                    <a class="btn btn-success" style ="margin-left: 60%;" href="{{ route('supp_generate_student_pdf',Crypt::encrypt(@@$masterrecord->student_id)) }}">
+                                        <img class="" src="{{asset('public/app-assets/images/new.jpg')}}" height="20" alt="materialize logo"/>
+                                        <?php echo $lblPDFLink; ?>
+                                    </a> 
+                                </h4>
+								@endif
+                            @endif
+          
+                            <?php
+                            if(!empty(@$masterrecord->locksubmitted_date) && @$masterrecord->locksumbitted == 1){
+							?>
+							     @if(@$checkchangerequestsssupplementariesAllowOrNotAllow == true && @$SupplementaryIdArr->supp_student_change_requests == 2 && @$suppchangerequestcheckfees == 'true' && @$changerequeststudent->supp_student_update_application == 1 && (empty($SupplementaryIdArr->update_supp_change_requests_challan_tid) && empty($SupplementaryIdArr->update_supp_change_requests_submitted)))
+									  @if(@$exam_month == @SupplementaryIdArr->exam_month)
+                                        <span style="color: red;font-size:14px;">
+                                            <b>छात्र </b>:- मोबाइल पर प्राप्त भुगतान लिंक के रूप में आवेदन पत्र शुल्क का भुगतान करने के लिए कहें| (<b>Ask to student </b>:- to pay application form fee as received payment link on mobile.)
+                                        </span> 
+                                        <div class="col-md-12 callout callout-warning" style="font-size:20px;"> 
+                                            <img class="" src="{{asset('public/app-assets/images/new.jpg')}}" height="40" alt="materialize logo"/>
+                                            <a href="{{ route('supp_change_request_registration_fee',Crypt::encrypt(@$masterrecord->student_id)) }}" style="">
+											पूरक फॉर्म शुल्क का भुगतान करने के लिए कृपया यहां क्लिक करें। (Please click here to pay the supplementary form fee.)
+                                            <i class="fa fa-tick"></i> <span class="btn btn-danger">supp change Make Payment</span></a>
+                                        </div>
+										@endif
+								 @else
+								 @if(@$masterrecord->category_a != 7)
+                                    @if($application_fee > 0  && @$masterrecord->fee_paid_amount <= 0 )
+                                        <span style="color: red;font-size:14px;">
+                                            <b>छात्र </b>:- मोबाइल पर प्राप्त भुगतान लिंक के रूप में आवेदन पत्र शुल्क का भुगतान करने के लिए कहें| (<b>Ask to student </b>:- to pay application form fee as received payment link on mobile.)
+                                        </span> 
+                                        <div class="col-md-12 callout callout-warning" style="font-size:20px;"> 
+                                            <img class="" src="{{asset('public/app-assets/images/new.jpg')}}" height="40" alt="materialize logo"/>
+                                            <a href="{{ route('supp_registration_fee',Crypt::encrypt(@@$masterrecord->enrollment)) }}" style="">
+											पूरक फॉर्म शुल्क का भुगतान करने के लिए कृपया यहां क्लिक करें। (Please click here to pay the supplementary form fee.)
+                                            <i class="fa fa-tick"></i> <span class="btn btn-danger">Make Payment</span></a>
+                                        </div>
+                                    @endif
+                                @endif
+								 @endif
+								
+                                <?php  } ?> 
+
+                                <div class="card">
+                                    <div class="card-content row">
+                                        <div >
+										<table style="border-bottom:1px black;width:100%;">
+										<tr>
+										<td>
+											अंतिम सत्यापन स्थिति(Final Verification Status) : 
+                                                @if(@$master->supplementary->is_department_verify == 2 && @$master->supplementary->is_aicenter_verify == 2)
+                                                    <span style="font-size:18px;font-weight:bold;color:green;"> Approved</span>
+                                                @else
+                                                    <span style="font-size:18px;font-weight:bold;color:red !important;"> Not Approved</span>
+                                                @endif  
+                                        <td>
+										</tr>
+										@if($role_id != Config::get("global.student"))
+                                           <tr>
+										<td> 
+                                        @include('elements.supplementary_action_approve_reject')
+                                        </td>
+										</tr>
+										@endif
+                                       </table>
+									   
+                                        </div>  
+                                    </div>
+                                </div> 
+								
+								
+                       
+  @if($role_id != Config::get("global.student"))
+                <div class="card">
+                    <div class="card-content invoice-print-area">
+                      <!--  <p style="font-weight: 1000;">अंतिम सत्यापन स्थिति: लंबित/स्वीकृत/अस्वीकृत ( Final Verfication Status : Pending/Approved/Rejected )</p>-->
+                        <!-- <div class="row">
+                            <div class="col m12 s12 scroll">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td width="50%"><p style="font-weight: 1000;">एआई केंद्र द्वारा सत्यापित है  ?(Is Verified By Aicenter)</p></td>
+                                        <td width="50%"><p>{{ @$supp_verfication_status[@$masterrecord->is_aicenter_verify] }}</td>
+                                    </tr>
+                                    @if($role_id == Config::get("global.examination_department"))
+                                       
+										<tr><td width="50%">
+                                          <p style="font-weight: 1000;">विभाग द्वारा सत्यापित है  ?(Is Verified By Department)</p></td>
+                                            <td width="50%">{{ @$supp_verfication_status[@$masterrecord->is_department_verify] }}</td>
+                                        </tr>
+                                    @endif 
+                                </table>
+                            </div>
+                        </div> 
+						-->
+                        @if(@$suppVerifcationData->aicenter_status && @$suppVerifcationData->aicenter_status && @$suppVerifcationData->aicenter_status == 3 && $suppData->is_aicenter_verify == 3)
+                            <div class="row">
+                                <div class="col m12 s12 scroll">
+                                    <table class="table table-striped">
+                            <tr>
+                                            <td width="50%" style="word-wrap:anywhere;" ><p style="font-weight: 1000;"> एआई केंद्र द्वारा टिप्पणियाँ( Remarks By AI Center)</p>
+                                        </td>
+                                            <td width="50%" style="word-wrap:anywhere;" ><p>{{ @$suppVerifcationData->aicenter_remark  }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif  
+                    </div>
+                </div>
+             
+                @if($role_id == Config::get("global.examination_department"))
+                    @if(@$suppVerifcationData->department_status && @$suppVerifcationData->department_status && @$suppVerifcationData->department_status == 3  && $suppData->is_department_verify == 3)
+                        <div class="row">
+                            <div class="col m12 s12 scroll">
+                                <table class="table table-striped">
+                                    <tr>
+										<td width="50%">
+											<p style="font-weight: 1000;"> विभाग द्वारा टिप्पणियाँ( Remarks By Department)</p>
+                                        <td width="50%" style="word-wrap:anywhere;"><p>{{ @$suppVerifcationData->department_remark  }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    @endif  
+                @endif
+			@else
+				
+				@if(@$suppVerifcationData->aicenter_status && @$suppVerifcationData->aicenter_status && @$suppVerifcationData->aicenter_status == 3 && $suppData->is_aicenter_verify == 3)
+					<p style="font-weight: 1000;"> एआई केंद्र द्वारा टिप्पणियाँ( Remarks By AI Center)</p>
+					<div class="row">
+						<div class="col m12 s12 scroll">
+							<table class="table table-striped">
+								<tr>
+									<td><p>{{ @$suppVerifcationData->aicenter_remark  }}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				@endif   
+			 
+				@if(@$suppVerifcationData->department_status && @$suppVerifcationData->department_status && @$suppVerifcationData->department_status == 3  && $suppData->is_department_verify == 3)
+					<p style="font-weight: 1000;"> विभाग द्वारा टिप्पणियाँ( Remarks By Department)</p>
+					<div class="row">
+						<div class="col m12 s12 scroll">
+							<table class="table table-striped">
+								<tr>
+									<td><p>{{ @$suppVerifcationData->department_remark  }}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				@endif  
+                
+				
+            @endif
+
+							<div class="">
+                           
+								@foreach($supp_master as $secotionFld => $values)
+                                    @if( $secotionFld == "compulsorySubjectDetails" || $secotionFld == "additionalSubjectDetails")
+                                        @php 
+                                            continue;
+                                        @endphp
+                                    @endif
+									@php if($values['data'] != null){   @endphp 
+									<div class="card">
+                                        <div class="card-content invoice-print-area"> 
+											@php echo '<p style="font-weight: 1000;">'.@$values['seciontLabel'].'</p>';  @endphp 
+											<!--<div class="divider mb-3 mt-3"></div>-->
+                                            <div class="row">
+											</br>
+                                                <div class="col m12 s12">
+													<table><tr> 
+														@php $counter = 0; @endphp 
+														@php if($values['data'] != null){ @endphp 
+														@foreach(@$values['data'] as $fld => $lbl) 
+														@php $showTr = false;
+														if($counter%2 === 0){ $showTr = true; } 
+														if($showTr){  echo "</tr><tr>"; } 
+														@endphp 
+														<td width="20%"><p style="font-size: 16px;font-weight: bold;">@php echo @$lbl['label']; @endphp</p></td>
+														<td width="5%"> @php echo " : "; @endphp </td>
+														<td width="20%"> @php echo @$lbl['value']; @endphp </td>
+														@php $counter++; @endphp 
+														@endforeach 
+														@php } @endphp 
+														</tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--<div class="divider mb-3 mt-3"></div>-->
+                                    </div>
+							   @php } @endphp 
+							  
+									
+							@endforeach 
+				<div class="card">
+                <div class="card-content invoice-print-area">
+                    <div class="row">
+                        <div class="col m12 s12"> 
+
+                            <div><span style=""></span></div>
+                            <div><span style=""><p style="font-weight: 1000;">&nbsp;अनिवार्य विषय ( Compulsory Subject )</p></div>
+                            <table border="1" style="width:100%;">
+                                <tbody>
+                                    <!--<tr>
+                                        <td colspan="5"><span style="font-size:10px;"><span class='customStrong'>Compulsory Subject</span></span></td>
+                                    </tr>-->
+                                    <tr>
+									  
+                                        @if(!empty($result))
+                                        @foreach($result as $key => $values) 
+                                        <td>
+											<p style="font-weight: 1000;">Subject{{ @$key + 1 }}
+											
+											</p>
+										</td>
+                                        @endforeach
+                                        @endif 
+                                    </tr> 
+                                    <tr>
+                                        @if(!empty($result))
+                                        @foreach($result as $key => $values) 
+										<td>
+                                            <span>
+                                                {{ @$subject_list[$values['subject_id']] }}&nbsp;&nbsp;
+                                                <span style="font-weight: bold;font-size: 16px;color: green;">
+                                                    <?php
+													if(isset($values['final_result']) && @$values['final_result']=="P") { 
+														echo "(Pass)"; 
+													}  ?>
+                                                </span>
+												
+												@if($isAllowSuppSubjectDelete) 
+													@if(isset($values['final_result']) && @$values['final_result']=="P") 
+														
+													@else 
+														<a href="{{ route('suppsubjectdelete',Crypt::encrypt($values['id'])) }}" class="delete-confirm" > 
+															<i class="material-icons tooltipped" data-position="bottom" data-tooltip="Click here to delete {{ @$subject_list[$values['subject_id']] }}"  style="">delete</i>
+														</a>
+													@endif
+												@endif
+												
+                                            </span>
+                                        </td>
+                                        @endforeach
+                                        @endif
+
+                                    </tr>
+                                        
+                                </tbody>
+                            </table>
+						</div>
+					</div>
+				</div>
+			</div>
+            
+			
+			@if(@$mastersuppcount > 0)
+			<div class="card">
+                <div class="card-content invoice-print-area">
+                    <div class="row">
+                        <div class="col m12 s12"> 
+                            @if(@$mastersuppcount > 0)
+                            <div class=""><p style="font-weight: 1000;">&nbsp;अतिरिक्त विषय ( Additional Subject)</p></div>
+                            <table border="1" style="width:100%;">
+                                <tbody>
+                                    <!--<tr>
+                                        <td colspan="5"><span class='customStrong'><span style="font-size:10px;">Additional Subject</span></span></td>
+                                    </tr>-->
+                                    
+                                    <tr>
+                                        @for($i=1;$i <= $mastersuppcount;$i++) 
+                                        <td><span class='customStrong'><span style="">Subject{{ $i }}
+									
+										
+
+									</span></span></td>
+                                        @endfor
+                                    </tr>
+                                    
+                                    <tr>
+                                        @foreach(@$mastersupp as $key => $values)
+                                        @if(@$values['is_additional_subject']==1)
+											<td><span style="">{{ $subject_list[$values['subject_id']] }}</span>
+										
+										
+											@if($isAllowSuppSubjectDelete) 
+												@if(isset($values['final_result']) && @$values['final_result']=="P") 
+													
+												@else 
+													<a href="{{ route('suppsubjectdelete',Crypt::encrypt($values['id'])) }}" class="delete-confirm" > 
+														<i class="material-icons tooltipped" data-position="bottom" data-tooltip="Click here to delete {{ @$subject_list[$values['subject_id']] }}"  style="">delete</i>
+													</a>
+												@endif
+											@endif
+											
+										</td>
+                                        @endif
+                                        @endforeach
+                                    </tr>
+                                </tbody>
+                            </table><br>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+			@endif 
+            
+           
+        
+                <div class="card">
+                    <div class="card-content invoice-print-area">
+                        <div class="row">
+                            <div class="col m12 s12">
+							
+                               
+                            <table class="table table-striped">
+                                <tr>
+                                    <th><p style="font-weight: 1000;">Important Instructions</p></th>
+                                    <th><p style="font-weight: 1000;">महत्वपूर्ण निर्देश</p></th>
+                                </tr>
+                                <!--<tr><td>If you will not deposit the fee within 3 working days of filling the form, the data will be automatically deleted</td>
+                                    <td>आप  फॉर्म  भरने  के ३ दिन के भीतर शुल्क  जमा करवाये अन्यथा डाटा स्वचालित रूप से हटा दिये जाएंगे|</td></tr>
+                                    <tr><td>You can take print out of your filled application form after login with registered user credential at any time.</td>
+                                    <td>आप किसी भी समय पंजीकृत लॉग इन और पासवर्ड के क्रेडेंशियल के  साथ लॉग इन  कर सकते हैं और अपने भरे हुए  आवेदन फॉर्म का प्रिंट आउट ले सकते हैं |</td></tr>
+                                    <tr><td>After submission and payment of applicable fee, the student would print the three copies of filled form and submit to AI Center with requisite document.</td>
+                                    <td>फॉर्म  प्रस्तुत करने और लागू शुल्क के भुगतान के बाद छात्र भरे हुए फॉर्म कि तीन प्रतियाँ  प्रिंट कर अपेक्षित दस्तावेज के साथ सन्दर्भ केंद्र पर जमा करवाए |</td></tr>-->
+                                <tr>
+                                    <td>The fees will be deposited in 3 stages.<br>
+                                        (a) Stage 1 : Without late fees from 23th Jan., 2025 to 6th Feb., 2025.<br>
+                                        (b) Stage 2 : With 50/- per subject late fees from 7th Feb., 2025 to 15th Feb., 2025.<br>
+                                        (c) Stage 3 : With 500/- late fees from 16th Feb., 2025 to 20th Feb., 2025.<br>
+                                    </td>
+                                    <td>आवेदन पत्र भरने का शुल्क  3 चरणों में जमा होगा <br>
+                                        (a) प्रथम चरण : साधारण शुल्क दिनांक 23 जनवरी, 2025 से 6 फरवरी, 2025 तक।<br>
+                                        (b) द्वितीय चरण : 50रू. प्रति विषय विलम्ब शुल्क  दिनांक 7 फरवरी, 2025 से 15 फरवरी, 2025 तक।<br>
+                                        (c) तृतीय चरण : 500रू. असाधारण विलम्ब शुल्क  दिनांक 16 फरवरी, 2025  से 20 फरवरी, 2025 तक। <br>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>The Incharge of A.I center can take the print out of filled application form
+                                        after login with registered user credential at any time.</td>
+                                    <td>सन्दर्भ केन्द्र प्रभारी किसी भी समय पंजीकृत लॉग इन और पासवर्ड क्रेडेंशियल के साथ
+										लॉग इन कर, अभ्यर्थी द्वारा भरे हुए आवेदन फॅार्म का प्रिंट
+										आउट ले सकते हैं।
+									</td>
+                                </tr>
+                                <tr>
+                                    <td>The AI Center Incharge will forward all the forms (with the photo copy of
+                                        previous exam) to RSOS office after verifing them within 5 days and will keep
+                                        one copy of every filled up application form for office record.</td>
+                                    <td>सन्दर्भ केन्द्र प्रभारी अन्तिम तिथि पश्चात् 5 दिवस के भीतर आवेदन -पत्र (पूर्व
+										परीक्षा की अंक तालिका की प्रति सहित) सत्यापित कर RSOS कार्यालय को प्रेषित करेंगे
+										तथा आवेदन पत्रों की एक प्रति सन्दर्भ केन्द्र प्रभारी स्वयं के रिकार्ड हेतु
+										संधारित करेगें।
+                                    </td>
+                                </tr> -->
+                            </table><br>   
+                                @php 
+                                 
+                                @endphp
+						    @if(@$checkchangerequestsssupplementariesAllowOrNotAllow == true && @$SupplementaryIdArr->supp_student_change_requests == 2)
+							 @if(@$exam_month == @SupplementaryIdArr->exam_month)
+						     @include('elements.supp_change_requerst_locksumbitted')
+						     @endif
+							@else
+							@if(!$documentErrors) 
+                                                @php $fld='locksumbitted';   @endphp 
+                                                    @if(empty(@@$masterrecord->$fld))
+                                                 @php $lbl=''; $fld='locksumbitted'; @endphp 
+                                                        {{ Form::open(['route' => [request()->route()->getAction()['as'], $estudent_id], 'id' => $model]) }} 
+                                                        {!! Form::token() !!} 
+                                                        {!! method_field('PUT') !!}  
+                                                            <p class="mb-1">
+                                                                <label>
+																{{ Form::checkbox($fld, null) }}
+                                                                    <span>@php echo Config::get('global.supp_undertaking_msg'); @endphp
+                                                                    </span>
+                                                                </label><br><br> 
+								
+                                                                @include('elements.field_error')
+                                                            </p> 
+                                                        <div class="col m7 s12 mb-3">
+                                                            <button class="btn cyan waves-effect waves-light right " type="submit" name="action"> Lock & Submit </button>
+                                                        </div> 
+                                                        {{ Form::close() }}
+														@endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @else
+                                    <div class="card">
+                                        <div class="card-content invoice-print-area" style="color:red;">
+                                               <span style="color:green;font-size:20px;font-weight: bold;"> Pending Docuemtns </span>
+                                                @foreach(@$documentErrors as $v)
+                                                    <div class="row">
+                                                        <div class="col m12 s12">
+                                                            <table>
+                                                                <tr> 
+                                                                    @php $link = 'document_details'; @endphp
+                                                                    <a data-target="" class="" href="{{ route($link,Crypt::encrypt($student_id)) }}">
+                                                                        <span class="dropdown-title3" data-i18n="Persoanl">
+                                                                            @php echo $v; @endphp
+                                                                        </span>  
+                                                                    </a>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                @endforeach
+                                            @endif
+							              @endif
+                            
+								        </div>
+								    </div>
+								</div>
+                            </div>
+                            <div class="row"></div>
+							<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div> 
+@endsection 
+
+@section('customjs')
+
+
+
+	<script src="{!! asset('public/app-assets/js/bladejs/supplementary/supp_preview_details.js') !!}"></script> 
+@endsection 

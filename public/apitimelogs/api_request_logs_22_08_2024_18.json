@@ -1,0 +1,5 @@
+{"request_time":"2024-08-22 18:09:48","response_time":"2024-08-22 18:09:48","total_time":0.33989787101745605,"milliseconds":"339 ms","request_data":"\/rsos\/api\/update_new_api_student_login"}
+{"request_time":"2024-08-22 18:09:59","response_time":"2024-08-22 18:10:00","total_time":0.5844130516052246,"milliseconds":"584 ms","request_data":"\/rsos\/api\/update_new_api_student_login"}
+{"request_time":"2024-08-22 18:10:12","response_time":"2024-08-22 18:10:12","total_time":0.016163110733032227,"milliseconds":"16 ms","request_data":"\/rsos\/api\/update_new_api_master_subjects"}
+{"request_time":"2024-08-22 18:10:44","response_time":"2024-08-22 18:10:45","total_time":0.602118968963623,"milliseconds":"602 ms","request_data":"\/rsos\/api\/update_new_api_student_exam_subjects"}
+{"request_time":"2024-08-22 18:17:07","response_time":"2024-08-22 18:17:07","total_time":0.5962049961090088,"milliseconds":"596 ms","request_data":"\/rsos\/api\/update_new_api_student_login"}

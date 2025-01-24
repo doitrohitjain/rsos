@@ -1,0 +1,64 @@
+ @include('layouts.appheader')
+ @include('layouts.appleft')
+<!-- HTML VALIDATION  -->
+ <div class="row">
+    <div class="col s12">
+      <div id="html-validations" class="card card-tabs">
+        <div class="card-content">
+          <div class="card-title">
+            <div class="row">
+              <div class="col s12 m6 l10">
+                <h4 class="card-title">HTML Validation Example</h4>
+              </div>
+              <div class="col s12 m6 l2">
+              </div>
+            </div>
+          </div>
+          <div id="html-view-validations">
+		  {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="uname0">Username*</label>
+                  {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                </div>
+                
+                <div class="col s12">
+                  <p>Gender</p>
+                  <p>
+                    <label>
+                      <input class="validate" required name="gender0" type="radio" checked />
+                      <span>Male</span>
+                    </label>
+                  </p>
+
+              
+                  <div class="input-field">
+                  </div>
+                </div>
+                <div class="col s12">
+                  <label for="tnc_select1">T&C *</label>
+                  <p>
+                    <label>
+                      <input class="validate" required id="tnc_select1" type="checkbox" />
+                      <span>Please agree to our policies</span>
+                    </label>
+                  </p>
+                  <div class="input-field">
+                  </div>
+                </div>
+                <div class="input-field col s12">
+                  <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+              </div>
+          {!! Form::close() !!}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@include('layouts.centerseeting')
+@include('layouts.appfooter')
+
+ 

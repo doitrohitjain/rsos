@@ -1,0 +1,193 @@
+<html>
+<head>
+<style>
+.dottedborderstyle{
+	border-top: 4px solid black !important;
+	margin-top:5px !important;
+	margin-bottom:5px !important;
+	margin-left:2px !important;
+	margin-right:2px !important;
+}
+#instructions ol li{margin-top:4px;font-size:15px;}
+.admitCard2{
+	font-family: Helvetica, Sans-Serif;
+}
+.hallticketbackcss{
+	text-align:center;
+}
+.hallticketbackcss div{
+	font-weight:bold;
+}
+.leftTd{
+	text-align:left;
+	padding-left:10px;
+}
+.rightTd{
+	text-align:right;
+	padding-right:10px;
+}
+.page-header{
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;		
+	
+}
+.page-headerh5{
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+	font-size:15px;
+	font-weight:normal;
+}
+.page-headerh4{
+	margin:20px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+	font-size:16px;
+	font-weight:normal;
+	
+}
+h2{font-size:17px;margin:10px 0px 5px 0px;}
+td h4{font-size:13px;margin:10px 0px 5px 0px;}
+
+.page-break {
+	page-break-after: always;
+	page-break-inside:avoid;
+}
+
+.font{
+ font-family: Arial, sans-serif;
+ }
+</style>
+</head>
+
+<body class="font">
+
+$php $counter = 0; 
+foreach($final_data as $key =>$value){
+dd($value);
+$endphp
+<div class="admitCard">
+	<div class="row" style="border-style: groove;margin-top:5px;margin-left:5px;margin-right:5px;height:50%px;page-break-inside: avoid">
+		<table cellspacing="0" style="width:100%;height:25px;">
+			<tbody>
+				<tr>
+					<td style="width:10%">
+						<p><img src="http://10.68.181.236/lrsos/public/app-assets/images/favicon/administrator.png" style="width: 50px; height: 25px; border-radius: 10px ;padding:15px;" alt="image upload button"></p>
+					</td>
+					<td style="text-align:center; vertical-align:middle">
+						<span style="font-size:16px;"><b>RAJASTHAN STATE OPEN SCHOOL <b><span><br>
+						<span style="font-size:14px;color:#817373">
+						SUBJECT WISE ROLL (Examination, Mar-May 2022) 
+						</span>
+					</span></b></b></span></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div class="col-md-12" > 
+			<div class="col-xs-12" style="">
+				<div class="row">
+					<table style="width:100%;">
+						<tbody>
+							<tr>
+								<th width="33%">Center Code : 13232</td>
+								<td width="33%">Subject : Hindi(201)</td>
+								<td width="33%">Exam Date : 03/06/2022</td>
+							</tr>
+							<tr>
+								<td colspan='3' width="100%">Center Name: Smt.Bhagwan Devi Bhuwalka Govt.Girls Sr. Sec. School, Ratangarh (Churu)</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="row" style="margin-top:25px;">
+				<div class="col-sm-12">
+					<table style="width:100%;">
+						<tbody>
+							<tr>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+							</tr>
+							<!-- loop part -->
+							<tr>
+								<td width="10%">1</td>
+								<td width="10%">2</td>
+								<td width="10%">3</td>
+								<td width="10%">4</td>
+								<td width="10%">5</td>
+								<td width="10%">6</td>
+								<td width="10%">7</td>
+								<td width="10%">8</td>
+								<td width="10%">9</td>
+								<td width="10%">10</td>
+							</tr>
+							<tr>
+								<td width="10%">1</td>
+								<td width="10%">2</td>
+								<td width="10%">3</td>
+								<td width="10%">4</td>
+								<td width="10%">5</td>
+								<td width="10%">6</td>
+								<td width="10%">7</td>
+								<td width="10%">8</td>
+								<td width="10%">9</td>
+								<td width="10%">10</td>
+							</tr>
+							<!-- loop part -->
+							<tr><td colspan='10' width="100%">Toal Students : 2</td></tr>
+							
+							<!-- Supplementary Student part -->
+							<tr>
+								<td colspan='10' width="100%"><b>Supplementary Students</b></td>
+							</tr>
+							<tr>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+								<th width="10%" style="text-align:left">ROLL</th>
+							</tr>
+							<!-- loop part -->
+							<tr>
+								<td width="10%">1</td>
+								<td width="10%">2</td>
+								<td width="10%">3</td>
+								<td width="10%">4</td>
+								<td width="10%">5</td>
+								<td width="10%">6</td>
+								<td width="10%">7</td>
+								<td width="10%">8</td>
+								<td width="10%">9</td>
+								<td width="10%">10</td>
+							</tr>
+							<!-- loop part -->
+							<tr><td colspan='10' width="100%">Toal Students : 1</td></tr>
+							<!-- Supplementary Student part -->
+						</tbody>
+					</table>								
+				</div>							
+			</div>
+		</div>
+	</div>
+</div>
+$php $counter++; 
+}
+$endphp
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+
+</body>
+</html>
+

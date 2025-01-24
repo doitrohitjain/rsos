@@ -1,0 +1,60 @@
+
+var countDownDate = null;
+console.log(endtime);
+if(endtime !== ""){
+  countDownDate = new Date(endtime).getTime();
+}else{
+  countDownDate = currentwithaddingtenmin;
+} 
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  document.getElementById("count_down").innerHTML =  minutes + "M " + seconds + "S ";
+  if(minutes == 1){
+	var logoutUrl = phpJsVarSet.routes.logoutUrl;
+	var ajaxBaseUrl = phpJsVarSet.routes.ajaxBaseUrl;
+	var action = "setCountDownTimerDetails";
+	var ajaxUrl = ajaxBaseUrl + action;	
+	swal({
+		title: 'Continue with current login?(वर्तमान लॉगिन के साथ जारी रखें?)',
+		text: "Your login session is about to expire. You will be automatically logout. To staty logged in, Please select continue with the current login?(आपका वर्तमान लॉगिन समाप्त होने वाला है. आप स्वचालित रूप से लॉगआउट हो जायेंगे. लॉग इन रहने के लिए, कृपया वर्तमान लॉगिन के साथ जारी रखें का चयन करें?)", 
+		icon: 'info',  
+		buttons: [
+			'Logout',
+			'Continue with current login'
+		],
+		timer: 60000
+	 })
+	.then((willsave) => {
+		if (willsave == true) {
+			$.ajaxSetup({
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+			});
+			$.ajax({
+			url: config.routes.setCountDownTimerDetails,
+			type: "POST",
+			dataType: "json",
+			success: function (response) {
+				location.reload();
+			}
+		});
+		}else if (willsave == null) {
+			window.location.href = logoutUrl;
+		}
+		 swal.close()
+	});
+	return false;
+  }
+  if (distance < 0) {
+    clearInterval(x);
+    //document.getElementById("count_down").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+
+
+

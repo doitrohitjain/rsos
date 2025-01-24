@@ -1,0 +1,208 @@
+<?php use App\Component\CustomComponent; ?>
+<html>
+<head>
+<style>
+.dottedborderstyle{
+	border-top: 4px solid black !important;
+	margin-top:5px !important;
+	margin-bottom:5px !important;
+	margin-left:2px !important;
+	margin-right:2px !important;
+}
+#instructions ol li{margin-top:4px;font-size:15px;}
+.admitCard2{
+	font-family: Helvetica, Sans-Serif;
+}
+.hallticketbackcss{
+	text-align:center;
+}
+.hallticketbackcss div{
+	font-weight:bold;
+}
+.leftTd{
+	text-align:left;
+	padding-left:10px;
+}
+.rightTd{
+	text-align:right;
+	padding-right:10px;
+}
+.page-header{
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;		
+	
+}
+.page-headerh5{
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+	font-size:15px;
+	font-weight:normal;
+}
+.page-headerh4{
+	margin:20px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+	font-size:16px;
+	font-weight:normal;
+	
+}
+h2{font-size:17px;margin:10px 0px 5px 0px;}
+td h4{font-size:13px;margin:10px 0px 5px 0px;}
+
+.page-break {
+	page-break-after: always;
+	page-break-inside:avoid;
+}
+
+.font{
+ font-family: Arial, sans-serif;
+ }
+</style>
+</head>
+
+<body class="font">
+
+<?php $counter = 1; ?>
+@foreach($final_data as $key =>$data)
+
+<div class="admitCard">
+	<div class="row" style="margin-top:5px;margin-left:5px;margin-right:5px;height:50%px;page-break-inside: avoid">
+		<table cellspacing="0" style="width:100%;height:25px;">
+			<tbody>
+				<tr>
+					<td style="width:10%">
+						<p><img src="http://10.68.181.236/lrsos/public/app-assets/images/favicon/administrator.png" style="width: 90px; height: 80px; border-radius: 10px ;padding:15px;" alt="image upload button"></p>
+					</td>
+					<td style="text-align:center; vertical-align:middle">
+						<span style="font-size:18px;">RAJASTHAN STATE OPEN SCHOOL<span><br>
+						<span style="font-size:14px;color:#817373">
+						SUBJECT WISE ROLL (Examination, Mar-May 2022
+						<?php 							
+							if(isset($examDates[$stream])){ echo $examDates[$stream]; }  ?>) 
+						</span>
+						</span></b></b></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+					
+		<div class="col-md-12" > 
+			<div class="col-xs-12" style="">
+				<div class="row">
+					<table style="width:100%;">
+						<tbody>
+							<tr>
+								<td width="33%" style="text-align:left;font-size:12px;">Center Code : {{ $examcenter_detail_id }}</td>
+								<td width="33%" style="text-align:left;font-size:12px;">Subject : {{ $data['subject_name']." [Theory]"; }}</td>
+								<td width="33%" style="text-align:left;font-size:12px;">Exam Date : 
+								<?php 
+								$custom_component_obj = new CustomComponent;
+								$exam_date = $custom_component_obj->getExamDate($stream,$data['subject_id']);
+								echo $exam_date;
+								?></td>
+							</tr>
+							<tr>
+								<td colspan='3'><span style="width:100%;font-size:12px;">Center Name: {{ @$examCenterDetail->college_name; }}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="row" style="margin-top:25px;>
+				<div class="col-sm-12">
+					<table style="border-top:1px solid;border-bottom:1px solid;border-left:1px solid #817373;border-right:1px solid #817373;margin-top: 1%;border-collapse:unset;margin-bottom:0px;" width="100%">
+						<tbody>
+							<tr>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+							</tr>
+							
+							<tr>
+								<!-- loop part -->
+								<?php
+								$enrollment_count = 0;
+								if(isset($data['studentData']) && !empty($data['studentData'])){ 
+									foreach($data['studentData'] as $studentKey=>$enrollement){
+									?>
+									<td width="10%">{{ $enrollement['enrollment'] }}</td>
+									<?php $enrollment_count++; } 
+								} else { ?>
+									<td colspan="10" style="text-align:center">NILL</td>
+								<?php } ?>
+								<!-- loop part -->
+							</tr>
+						</tbody>	
+					</table>
+					
+					<table style="width:100%">
+						<tbody>
+							<tr><td colspan='10' width="100%" style="text-align:right">Toal Students : {{ $enrollment_count }}</td></tr>
+						</tbody>
+					</table>
+					
+					<table style="border:0PX;">
+						<tr>
+							<th colspan="10" style="border-bottom: 1px solid !important;border-top: 0px !important;border-right: 0px !important;">Supplementary Students</th>
+						</tr>
+					</table>
+						
+					<table style="border-top:1px solid;border-bottom:1px solid;border-left:1px solid #817373;border-right:1px solid #817373;margin-top: 1%;border-collapse:unset;margin-bottom:0px;" width="100%">
+						<tbody>
+							<!-- Supplementary Student part -->
+							<tr>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+								<th style="border-bottom: 1px solid !important;border-right: 0px !important;">ROLL</th>
+							</tr>
+							
+							<tr>
+								<!-- loop part -->
+								<?php
+								$supp_enrollment_count = 0;
+								if(isset($data['suppStudentData']) && !empty($data['suppStudentData'])){ 
+									foreach($data['suppStudentData'] as $suppStudentKey=>$SuppEnrollement){
+									?>
+									<td width="10%">{{ $SuppEnrollement['enrollment'] }}</td>
+									<?php $enrollment_count++; } 
+								} else { ?>
+									<td colspan="10" style="text-align:center">NILL</td>
+								<?php } ?> 
+								<!-- loop part -->
+							</tr>
+							<!-- Supplementary Student part -->
+						</tbody>
+					</table>
+					
+					<table style="width:100%">
+						<tbody>
+							<tr><td colspan='10' width="100%" style="text-align:right">Toal Students : {{ $supp_enrollment_count }}</td></tr>
+						</tbody>
+					</table>
+				</div>							
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php $counter++;  
+if($counter < ($subject_count+1) ){ ?>
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+<?php } ?>
+@endforeach
+
+</body>
+</html>
+

@@ -1,0 +1,3 @@
+{"request_time":"2024-12-09 12:55:23","response_time":"2024-12-09 12:55:23","total_time":0.643265962600708,"milliseconds":"643 ms","request_data":"\/rsos\/api\/update_new_api_student_login"}
+{"request_time":"2024-12-09 12:55:44","response_time":"2024-12-09 12:55:44","total_time":0.06558990478515625,"milliseconds":"65 ms","request_data":"\/rsos\/api\/update_new_api_master_subjects"}
+{"request_time":"2024-12-09 12:55:59","response_time":"2024-12-09 12:55:59","total_time":0.49187707901000977,"milliseconds":"491 ms","request_data":"\/rsos\/api\/update_new_api_student_exam_subjects"}

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css2?family=Hind&display=swap" rel="stylesheet"> 
+<html>
+<head>
+<meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+ <link href="https://fonts.googleapis.com/css?family=Noto+Sans&subset=devanagari" rel="stylesheet">
+</head>
+
+<table border="0" style="width:100%;">
+	<tbody>
+		<tr>
+			<td style="width: 50%;font-size:12px"><strong>RAJASTHAN STATE OPEN SCHOOL,JAIPUR</strong></td>
+			<td style="width: 40%;font-size:12px"><strong>Registration Checklist(1st)[Total : 10]</strong></td>
+			<td style="width: 10%;font-size:12px;text-align:right;"><strong>&nbsp;&nbsp;&nbsp;<?php echo $ai_code;?>/<?php echo $course;?>th</strong></td>
+		</tr>
+	</tbody>
+</table>
+
+<hr />
+<table border="0"  style="width:100%;height:95px">
+	<tbody>
+		<tr style="width:20%;font-size:12px">
+			<td style="width: 15%;">S.No.</td>
+			<td style="width: 20%;">Name</td>
+			<td style="width: 15%;">DOB/Age</td>
+			<td style="width: 20%;">Subject / Add. Subjects</td>
+			<td rowspan="6" style="width: 10%; text-align: center;">Signature</td>
+			<td rowspan="6" style="width: 10%; text-align: center;">Photograph</td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td>ENR. No</td>
+			<td>Father&#39;s Name</td>
+			<td>Gender/Category</td>
+			<td>Exam Subjects</td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td>App. Type</td>
+			<td>Mother&#39;s Name</td>
+			<td>Medium/Course</td>
+			<td>Board/Year Pass XII</td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td>TOC Board/Year</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>Fee [AI/RSOS/Difference]</td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td>Roll No.</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>Error Parameters</td>
+		</tr>
+		<tr style="font-size:12px">
+			<td colspan="4" rowspan="1"><strong>Address</strong>: </td>
+		</tr>
+	</tbody>
+</table>
+
+<?php if(@$master){ $counter = 0; 
+foreach($master as $key => $student){  
+	@$student_id =$student->id; 
+	@$counter++;
+?> 
+<hr/>
+<table border="0" style="width:100%;height:95px;font-family: Hind;">
+	<tbody>
+		<tr style="width:20%;font-size:12px">
+			<td style="width: 15%;"><?= $counter; ?></td>
+			<td style="width: 20%;">{{ @$student->name }}</td>
+			<td style="width: 15%;">{{ @$student->dob }}</td>
+			<td style="width: 20%;">
+			<?php
+			foreach (@$student->admission_subject as $k => $subject_id){
+				echo $subjectCodes[@$subject_id->subject_id].","; 
+			}
+			?>
+			</td>
+			<td rowspan="6" style="width: 10%; text-align: center;">
+			<img alt="100%x200" src="<?php echo url('public/'.$studentDocumentPath .'/' . $student_id .'/' . @$student->document->signature ) ;?>" class="img-rounded" width="70" style="max-height:70px;"/>
+			</td>
+			<td rowspan="6" style="width: 10%; text-align: center;">
+			<img alt="100%x200" src="<?php echo url('public/'.$studentDocumentPath  .'/' . $student_id . '/' . @$student->document->photograph ) ;?>" class="img-rounded" width="100" style="max-height:70px;">
+			</td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td>@php echo $student->enrollment; @endphp</td>
+			<td><?php echo @$student->father_name; ?></td>
+			<td>{{ @$genders[$student->gender_id] }}
+                /
+            {{ @$categorya[$student->application->category_a] }}</td>
+			<td><?php
+			foreach (@$student->exam_subject as $k => $subject_id){
+				echo $subjectCodes[@$subject_id->subject_id].","; 
+			}
+			?> 
+			</td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td><?php echo  @$adm_types[$student->adm_type]; ?></td>
+			<td><?php echo $student->mother_name; ?></td>
+			<td>Medium/Course</td>
+			<td>RSOS/<?php 
+			if(@$student->application->year_pass){
+				echo "/".@$rsos_years[$student->application->year_pass];
+			} if(@$student->application->pre_qualification){
+				echo "(".$student->application->pre_qualification."th)";
+			} ?></td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td><?php 
+			if(@$student->application->toc && $student->application->toc == 1){
+				echo @$boards[$student->toc->board]."/".$rsos_years[$student->application->year_pass];
+			} else {
+				echo "No";
+			} 
+			?></td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>
+			<?php
+				$subFeeModel = @$student['FeeModelType'];
+				if(isset($student[$subFeeModel][$subFeeModel]) && !empty($student[$subFeeModel][$subFeeModel])){
+					if(isset($student['Student']['adm_type']) && $student['Student']['adm_type'] == 2){
+						echo $student[$subFeeModel][$subFeeModel]['total_fees'];
+					} else {
+						echo $student[$subFeeModel][$subFeeModel]['total'];
+					}
+					//. '/'.($student[$subFeeModel][$subFeeModel]['total']-50)."/".'50';
+				}
+			?></td>
+		</tr>
+		<tr style="width:20%;font-size:12px">
+			<td><?php echo @$student->toc->roll_no; ?></td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr style="font-size:12px">
+			<td colspan="4" rowspan="1"><strong>Address</strong>: 
+			<?php 
+			if(isset($student['Address']['address1']) && !empty($student['Address']['address1'])){
+				echo $student['Address']['address1'] . ',';
+			}
+			if(isset($student['Address']['address2']) && !empty($student['Address']['address2'])){
+				echo $student['Address']['address2'] . ',';
+			}
+			if(isset($student['Address']['address3']) && !empty($student['Address']['address3'])){
+				echo $student['Address']['address3'] . ',';
+			}
+			if(isset($student['Address']['tehsil_name']) && !empty($student['Address']['tehsil_name'])){
+				echo $student['Address']['tehsil_name'] . ',';
+			}
+			if(isset($student['Address']['city_name']) && !empty($student['Address']['city_name'])){
+				echo $student['Address']['city_name'] . ',';
+			}
+			if(isset($student['Address']['district_name']) && !empty($student['Address']['district_name'])){
+				echo $student['Address']['district_name'] . ',';
+			}
+			if(isset($student['Address']['state_name']) && !empty($student['Address']['state_name'])){
+				echo $student['Address']['state_name'] . '-';
+			}
+			if(isset($student['Address']['pincode']) && !empty($student['Address']['pincode'])){
+				echo $student['Address']['pincode'] . '';
+			}								
+		?>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<?php } } ?>
+
+
+                       

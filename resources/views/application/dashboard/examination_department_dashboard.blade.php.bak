@@ -1,0 +1,8 @@
+@extends('layouts.default')
+@section('content')
+    @include('elements.dashbaord.examination_department_section')
+	
+	@can('supp_change_request_dashboard')	
+		@include('elements.dashbaord.supp_change_request_sumamry_dashboard')
+	@endcan
+@endsection 

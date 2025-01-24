@@ -1,0 +1,127 @@
+@extends('layouts.default')
+ 
+@section('content')
+ <div id="main">
+      <div class="row">
+        <div id="breadcrumbs-wrapper" data-image="public/app-assets/images/gallery/breadcrumb-bg.jpg">
+          <!-- Search for small screen-->
+          <div class="container">
+            <div class="row">
+              <div class="col s12 m6 l6">
+                <h5 class="breadcrumbs-title mt-0 mb-0"><span>DataTable</span></h5>
+              </div>
+              <div class="col s12 m6 l6 right-align-md">
+                <ol class="breadcrumbs mb-0">
+                  <li class="breadcrumb-item"><a href="index-2.html">Home</a>
+                  </li>
+                  <li class="breadcrumb-item"><a href="#">Table</a>
+                  </li>
+                  <li class="breadcrumb-item active">DataTable
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="container">
+            <div class="section section-data-tables">
+			<div class="card">
+			<div class="card-content">
+	 <h6><a href="{{route('reports.create')}}" class="btn btn-xs btn-info right">ADD Master Queries</a></h6>
+      <h6>Master Queries <h6>
+	 </div>
+  </div>
+
+  <!-- Page Length Options -->
+  	<div class="card">
+			<div class="card-content">
+			      <h6>Table Filters <h6>
+		<table border="0" cellspacing="5" cellpadding="5">
+           <tbody>
+			<tr>
+			 <td>Title</td>
+            <td><input type="text" id="title" name="title"></td>
+			 <td>Status</td>
+			 <td><input type="text" id="status" name="status"></td>
+       <td>Text</td>
+            <td><input type="text" id="text" name="text"></td>
+			 <td>Status</td>
+			 <td><input type="text" id="status" name="status"></td>
+			 <td class="col-md-3 right">
+                    @php
+                        $route = Route::current()->getActionName();
+					@endphp
+					<a href="{{ action($route) }}" class="btn btn-primary">Reset</a></td>
+			</tr>
+    </tbody></table>
+	 </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content">
+          <div class="row">
+                <table id="reportstable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+					<th>status</th>
+					<th>Excel</th>
+					<th>PDF</th>
+					<th>Text</th>
+					<th>Title</th>
+					<th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @php $count=1; @endphp
+                  @foreach ($masterquerieexcel as $masterquerieexcels)
+                  <tr>
+				    <td>{{$count}}</td>
+				    <td>{{ (@$masterquerieexcels->status == 1) ? 'active' : 'disable'}}</td>
+					<td>{{ (@$masterquerieexcels->excel == 1) ? 'active' : 'disable'}}</td>
+					<td>{{ (@$masterquerieexcels->pdf == 1) ? 'active' : 'disable'}}</td>
+					<!--<td class="word-break">{{ @$masterquerieexcels->text }} </td>-->
+					<td class="word-break">{{  substr(@$masterquerieexcels->text,0,50)  }} </td> 
+                    <td>{{@$masterquerieexcels->title}}</td>
+					<td>
+					  <div class="invoice-action">
+					  <a href="{{ route('reports.edit',Crypt::encrypt($masterquerieexcels->id)) }}" class="invoice-action-edit">
+					  <i class="material-icons">edit</i></a>
+            <a href="javascript:void(0)" class="invoice-action-delete deleteProduct" data-id="{{ Crypt::encrypt($masterquerieexcels->id)  }}">
+							<i class="material-icons">delete</i></a>
+					  @if(@$masterquerieexcels->excel == 1)
+					  <a href="{{ route('export',Crypt::encrypt($masterquerieexcels->id)) }}" class="invoice-action-view mr-4">
+					  <i class="btn btn-default">Downlod excel</i></a></div>
+					  @endif<br>
+					  @if(@$masterquerieexcels->pdf == 1)
+					   <a href="{{ route('reporting_pdf',Crypt::encrypt($masterquerieexcels->id)) }}" class="invoice-action-view mr-4">
+					  <i class="btn btn-default">Downlod PDF</i></a>
+					  </div>
+					  @endif
+					  </td>
+                    </tr>
+                    @php $count++; @endphp
+                   @endforeach  
+                   
+                </tfoot>
+              </table>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+<!-- END RIGHT SIDEBAR NAV -->
+
+          </div>
+        </div>
+      </div>
+@endsection
+@section('customjs')
+	<script src="{!! asset('public/app-assets/js/bladejs/excel_query_details.js') !!}"></script> 
+@endsection 
+
+
+
+

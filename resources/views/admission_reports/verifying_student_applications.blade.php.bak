@@ -1,0 +1,139 @@
+@extends('layouts.default')
+@section('content')
+@php 
+	use App\Helper\CustomHelper;
+@endphp
+
+<div id="main">
+	<div class="row">
+        <div id="breadcrumbs-wrapper" data-image="{{ asset('public/app-assets/images/gallery/breadcrumb-bg.jpg')}}">
+			<!-- Search for small screen-->
+			<div class="container">
+				<div class="row">
+					<div class="col s12 m6 l6">
+						<h5 class="breadcrumbs-title mt-0 mb-0"><span>{{ $title }}</span></h5>
+					</div>
+					<div class="col s12 m6 l6 right-align-md">
+						<ol class="breadcrumbs mb-0"> 
+							@foreach($breadcrumbs as $v)
+								<li class="breadcrumb-item"><a href="{{ $v['url'] }}">{{ $v['label'] }}</a></li>
+							@endforeach 
+						</ol>
+					</div>
+				</div>
+			</div>
+        </div>
+		
+        <div class="col s12">
+			<div class="container"> 
+				<div class="section section-data-tables"> 
+					<div class="row">
+						<div class="col s12">
+							<div class="card">
+								<div class="card-content">
+									@include('elements.filters.search_filter')
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section section-data-tables"> 
+					<div class="row">
+						<div class="col s12">
+							<div class="card">
+								<div class="card-content">
+									<div class="row"> 
+									<table class="responsive-table">
+									<thead>
+									<tr>
+									<th>Sr.No.</th>
+									<th>Is Aicenter Verify</th>
+									<th>Enrollment</th>
+									<th>AI Code</th>
+									<th>Name</th>
+									<th>Gender</th>
+									<th>Course</th>
+									<th>Stream</th>
+									<th>Admission</th>
+									<th>Action</th>
+									</tr>
+									</thead>
+									<tbody>
+									@php $i = 1;@endphp
+									@foreach ($master as $key => $user)
+									<tr>
+									<td>
+									    {{ @$i }}
+									</td>
+									<td >{{ @$fresh_student_verfication_status[@$user->aicenter_status] }}</td>
+									<td >{{ @$user->enrollment }}</td>
+									<td >{{ @$user->ai_code }}</td>
+									<td >{{ @$user->name }}</td>
+									<td >{{ @$gender_id[@$user->gender_id] }}</td>
+									<td >{{ @$course[@$user->course] }}</td>
+									<td >{{ @$stream_id[@$user->stream] }}</td>
+									<td >{{ @$adm_types[@$user->adm_type] }}</td>
+									<td>
+									<div class="invoice-action">
+										@php 
+											$isAllowVerify = CustomHelper::helpercheckIsStudentVerificationAllowAtAICenter(@$user->locksubmitted_date);
+										@endphp
+										@if(@$role_id == config("global.aicenter_id"))
+											@if(@$user->aicenter_status == 2)
+												<a href="javascript:void(0);" class="btn btn-xs btn-info waves-effect waves-teal btn gradient-45deg-deep-orange-orange white-text" title="Verify the documents">
+												 Approved
+												</a>
+											@elseif(@$user->aicenter_status == 3)
+												<a href="javascript:void(0);" class="btn btn-xs btn-info waves-effect waves-teal btn gradient-45deg-deep-orange-orange white-text" title="Verify the documents">
+												 Rejected
+												</a>
+											@else
+												@if(@$isAllowVerify)
+													<a href="{{ route('verify_documents',encrypt($user->id)) }}" class="btn btn-xs btn-info waves-effect waves-teal btn gradient-45deg-deep-orange-orange white-text" title="Verify the documents">
+														Verify
+													</a>
+												@endif
+											@endif
+										@endif
+										
+										@if(@$role_id == config("global.super_admin_id"))
+											@if(@$user->department_status == 2)
+												<a href="javascript:void(0);" class="btn btn-xs btn-info waves-effect waves-teal btn gradient-45deg-deep-orange-orange white-text" title="Verify the documents">
+												 Approved
+												</a>
+											@elseif(@$user->department_status == 3)
+												<a href="javascript:void(0);" class="btn btn-xs btn-info waves-effect waves-teal btn gradient-45deg-deep-orange-orange white-text" title="Verify the documents">
+												Rejected By Dept
+												</a>
+											@else
+												<a href="{{ route('verify_documents',encrypt($user->id)) }}" class="btn btn-xs btn-info waves-effect waves-teal btn gradient-45deg-deep-orange-orange white-text" title="Verify the documents">
+													Verify
+												</a>
+											@endif
+										@endif
+									</div>
+									</td>
+									</tr>
+									 @php $i++; @endphp	
+									@endforeach 								
+									</tfoot>
+									</table>
+									{{ $master->withQueryString()->links('elements.paginater') }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> 
+          <div class="content-overlay"></div>
+        </div>
+		</div>
+    </div>
+</div> 
+@endsection
+
+@section('customjs')
+	<script src="{!! asset('public/app-assets/js/bladejs/reporting_student_application.js') !!}"></script> 
+@endsection 
+
+

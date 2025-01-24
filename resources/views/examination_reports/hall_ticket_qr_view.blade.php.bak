@@ -1,0 +1,6 @@
+
+<div class="row justify-content-center">
+     <div id="detail_div_a4">                      
+          <img src="{{ 'public/hallticket/qrcode/enrollment/01006232010.png' }}"  width="100%" height="600px">
+      </div>
+</div>

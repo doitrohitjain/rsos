@@ -1,0 +1,9 @@
+@extends('layouts.default')
+@section('content')
+<div class="input-group input-daterange">
+    <input type="date_time" my-date-format="DD/MM/YYYY, hh:mm:ss"class="form-control" id="myLocalDate" >
+
+</div>
+@endsection
+
+

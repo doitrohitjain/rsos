@@ -1,0 +1,25 @@
+@include('elements.reportlogo')
+				<table class="fl-table">
+                <thead>
+                  <tr>
+                    <th>Sr.No.</th>
+					<th>Ai Center</th>
+                    <th>Registred</th>
+                    <th>Locked & Submit</th>
+                    <th>Not Locked & Submit</th>
+                  </tr>
+                </thead>
+                <tbody>
+				  @php $i=1;@endphp
+                  @foreach ($result as $results)
+                  <tr>
+                    <td>{{@$i}}</td>
+					<td>{{@$results->college_name}}</td>
+					<td>{{@$results->student_all_by_aicode_count}}</td>
+					<td>{{@$results->student_all_by_aicode_count}}</td>
+					<td>{{@$results->student_all_by_aicode_count}}</td>
+                   </tr>
+					@php $i++;@endphp
+                   @endforeach  
+                </tbody>
+              </table>

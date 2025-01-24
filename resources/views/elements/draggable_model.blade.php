@@ -1,0 +1,2 @@
+<span class="waves-effect waves-light  modal-trigger modalDragableCls " title="Click here to quick view" style="color:#03a9f4;" data-content="{{ $modelContent }}"><i class="material-icons"> remove_red_eye </i></span>
+&nbsp;&nbsp;

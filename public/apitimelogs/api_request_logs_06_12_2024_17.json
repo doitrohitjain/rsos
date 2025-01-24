@@ -1,0 +1,6 @@
+{"request_time":"2024-12-06 17:03:21","response_time":"2024-12-06 17:03:21","total_time":0.013525009155273438,"milliseconds":"13 ms","request_data":"\/rsos\/api\/copy_checking\/master_subjects"}
+{"request_time":"2024-12-06 17:22:56","response_time":"2024-12-06 17:22:56","total_time":0.04436302185058594,"milliseconds":"44 ms","request_data":"\/rsos\/api\/copy_checking\/master_subjects"}
+{"request_time":"2024-12-06 17:27:42","response_time":"2024-12-06 17:27:42","total_time":0.03888106346130371,"milliseconds":"38 ms","request_data":"\/rsos\/api\/copy_checking\/master_theory_examiners"}
+{"request_time":"2024-12-06 17:28:01","response_time":"2024-12-06 17:28:01","total_time":0.04615592956542969,"milliseconds":"46 ms","request_data":"\/rsos\/api\/copy_checking\/master_theory_examiners"}
+{"request_time":"2024-12-06 17:28:13","response_time":"2024-12-06 17:28:13","total_time":0.04322004318237305,"milliseconds":"43 ms","request_data":"\/rsos\/api\/copy_checking\/master_theory_examiners"}
+{"request_time":"2024-12-06 17:28:28","response_time":"2024-12-06 17:28:28","total_time":0.05208706855773926,"milliseconds":"52 ms","request_data":"\/rsos\/api\/copy_checking\/master_theory_examiners"}

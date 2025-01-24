@@ -1,0 +1,4 @@
+<span class="" style="color:red;font-size:24px;">
+	<marquee><img class="" src="{{asset('public/app-assets/images/new.jpg')}}" height="20" alt="materialize logo"/>
+	Please contact to AI Center nodal office for apply the application form.(कृपया आवेदन पत्र भरने के लिए एआई सेंटर के नोडल कार्यालय से संपर्क करें।)</marquee>
+</span>

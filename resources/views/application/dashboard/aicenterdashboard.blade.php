@@ -1,0 +1,13 @@
+@extends('layouts.default')
+@section('content') 
+	@include('elements.dashboard_ui_notifications')
+	@can('Ai_center_student_dashboard')
+		@include('elements.dashbaord.student_applications')
+	@endcan
+	@can('Supplementary_ai_center_student_dashboard')
+		@include('elements.dashbaord.spplementary_student_applications')
+	@endcan 
+	@can('Reval_student_dashboard')
+		@include('elements.dashbaord.reval_student_applications')
+	@endcan
+@endsection 

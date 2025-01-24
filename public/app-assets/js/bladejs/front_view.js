@@ -1,0 +1,9 @@
+$(document).ready(function(){ 
+    $('#table_1_table').DataTable();
+    $('#table_2_table').DataTable(); 
+    $('#table_3_table').DataTable(); 
+    $('#table_4_table').DataTable(); 
+    $('#table_5_table').DataTable(); 
+    $('#table_6_table').DataTable(); 
+    $('#table_7_table').DataTable();
+});

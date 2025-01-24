@@ -1,0 +1,7 @@
+@extends('layouts.default')
+@section('content')  
+	@can('ao_verification_dashboard') 
+		@include('elements.dashbaord.verification.ao_verification_sumamry_dashboard')
+	@endcan 
+@endsection 
+
